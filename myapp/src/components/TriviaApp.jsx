@@ -6,6 +6,7 @@ import RenderQuestion from "./RenderQuestion";
 function TriviaApp() {
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState([]);
+  // console.log("User Answer is: ", userAnswers)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   useEffect(() => {
@@ -28,6 +29,7 @@ function TriviaApp() {
     // Create a copy of the userAnswers array and update the selected answer for the current question.
     const updatedUserAnswers = [...userAnswers];
     updatedUserAnswers[currentQuestionIndex] = selectedAnswer;
+    // console.log(updatedUserAnswers)
     setUserAnswers(updatedUserAnswers);
   };
 
@@ -41,6 +43,10 @@ function TriviaApp() {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
     }
+  };
+
+  const handleSubmit = () => {
+    // something about ShowScore
   };
 
   return (
@@ -61,6 +67,8 @@ function TriviaApp() {
         <button onClick={goToNextQuestion} disabled={currentQuestionIndex === questions.length - 1}>
           Next Question
         </button>
+        <button onClick={handleSubmit} disabled={userAnswers.includes(undefined) || userAnswers.length == 0}>
+          Submit</button>
       </div>
     </div>
   );
