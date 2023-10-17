@@ -46,6 +46,15 @@ function TriviaApp() {
   };
 
   const handleSubmit = () => {
+    const correctAnswers = questions.map(question=>question.correct_answer)
+    const scoreArray = userAnswers.map((userAnswer, index) => {
+      return userAnswer === correctAnswers[index] ? 1 : 0;
+    });
+    const finalScore = scoreArray.reduce((acc, value) => acc + value, 0);
+
+    // console.log('Score Array:', scoreArray);
+    // console.log('Final Score:', finalScore);
+
     // something about ShowScore
   };
 
