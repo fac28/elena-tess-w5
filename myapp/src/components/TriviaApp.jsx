@@ -32,7 +32,6 @@ function TriviaApp() {
     setUserAnswers(updatedUserAnswers);
   };
 
-
   return (
     <div>
       <RenderQuestion 
