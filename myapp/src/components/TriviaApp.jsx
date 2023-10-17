@@ -6,7 +6,7 @@ import RenderQuestion from "./RenderQuestion";
 function TriviaApp() {
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState([]);
-  console.log("User Answer is: ", userAnswers)
+  // console.log("User Answer is: ", userAnswers)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function TriviaApp() {
     // Create a copy of the userAnswers array and update the selected answer for the current question.
     const updatedUserAnswers = [...userAnswers];
     updatedUserAnswers[currentQuestionIndex] = selectedAnswer;
-    console.log(updatedUserAnswers)
+    // console.log(updatedUserAnswers)
     setUserAnswers(updatedUserAnswers);
   };
 

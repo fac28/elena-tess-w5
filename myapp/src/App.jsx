@@ -8,9 +8,7 @@ function App() {
 return (
   <>
   <h1>Trivia Questions</h1>
-  {/* TriviaHome */}
   <TriviaApp/>
-  {/* TriviaScore */}
   </>
 )
 }
