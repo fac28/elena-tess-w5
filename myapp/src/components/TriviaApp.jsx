@@ -45,9 +45,9 @@ function TriviaApp() {
     }
   };
 
-  const submit = () => {
-    
-  }
+  const handleSubmit = () => {
+    // something about ShowScore
+  };
 
   return (
     <div>
@@ -67,7 +67,7 @@ function TriviaApp() {
         <button onClick={goToNextQuestion} disabled={currentQuestionIndex === questions.length - 1}>
           Next Question
         </button>
-        <button onClick={submit} disabled={userAnswers.includes(undefined) || userAnswers.length == 0}>
+        <button onClick={handleSubmit} disabled={userAnswers.includes(undefined) || userAnswers.length == 0}>
           Submit</button>
       </div>
     </div>
