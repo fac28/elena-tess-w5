@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getTriviaQuestions } from "../services/api";
 import { shuffleArray } from "../utils/shuffleArray";
+import RenderQuestion from "./RenderQuestion";
 
 function TriviaApp() {
   const [questions, setQuestions] = useState([]);
@@ -31,34 +32,11 @@ function TriviaApp() {
     setUserAnswers(updatedUserAnswers);
   };
 
-
   return (
     <div>
-      <ul>
-        {questions.map(question => (
-          <li key={question.question}>
-            <h3>Question: {question.question}</h3>
-            <div>
-              {
-              question.answers.map((answer, index) => (
-                <label key={answer}>
-                  <input
-                    type="radio"
-                    name={`question${question.question}`}
-                    value={answer}
-                    onChange={(e) =>
-                      handleAnswerChange(index, e.target.value)
-                    }
-                  />
-                  {answer}
-                </label>
-           
-              ))}
-            </div>
-            <p>Correct Answer: {question.correct_answer}</p>
-          </li>
-        ))}
-      </ul>
+      <RenderQuestion 
+        questions={questions} 
+        handleAnswerChange={handleAnswerChange}/>
     </div>
   );
 }
