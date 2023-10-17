@@ -6,17 +6,17 @@ import RenderQuestion from "./RenderQuestion";
 function TriviaApp() {
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   useEffect(() => {
     async function fetchTrivia() {
       try {
-        const data = await getTriviaQuestions()
+        const data = await getTriviaQuestions();
         const shuffledQuestions = data.results.map((question) => ({
-            ...question,
-            answers: shuffleArray([...question.incorrect_answers, question.correct_answer]),
-          }));
+          ...question,
+          answers: shuffleArray([...question.incorrect_answers, question.correct_answer]),
+        }));
         setQuestions(shuffledQuestions);
-        console.log(data)
       } catch (error) {
         console.error(error);
       }
@@ -24,19 +24,44 @@ function TriviaApp() {
     fetchTrivia();
   }, []);
 
-  
-  const handleAnswerChange = (questionIndex, selectedAnswer) => {
+  const handleAnswerChange = (selectedAnswer) => {
     // Create a copy of the userAnswers array and update the selected answer for the current question.
     const updatedUserAnswers = [...userAnswers];
-    updatedUserAnswers[questionIndex] = selectedAnswer;
+    updatedUserAnswers[currentQuestionIndex] = selectedAnswer;
     setUserAnswers(updatedUserAnswers);
+  };
+
+  const goToNextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    }
+  };
+
+  const goToPreviousQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    }
   };
 
   return (
     <div>
-      <RenderQuestion 
-        questions={questions} 
-        handleAnswerChange={handleAnswerChange}/>
+      {questions.length > 0 ? (
+        <RenderQuestion
+          question={questions[currentQuestionIndex]}
+          handleAnswerChange={handleAnswerChange}
+        />
+      ) : (
+        <p>Loading...</p>
+      )}
+
+      <div>
+        <button onClick={goToPreviousQuestion} disabled={currentQuestionIndex === 0}>
+          Previous Question
+        </button>
+        <button onClick={goToNextQuestion} disabled={currentQuestionIndex === questions.length - 1}>
+          Next Question
+        </button>
+      </div>
     </div>
   );
 }
