@@ -1,6 +1,6 @@
 // import PropTypes from "prop-types";
 
-const HomePage = ({ onStartClick  }) => {
+const HomePage = ({ onStartClick }) => {
   return (
     <div>
       <h1>Welcome to the Trivia Game!</h1>
@@ -11,7 +11,7 @@ const HomePage = ({ onStartClick  }) => {
 };
 
 // HomePage.propTypes = {
-    // onStartClick: PropTypes.boo 
+// onStartClick: PropTypes.boo
 // };
 
 export default HomePage;

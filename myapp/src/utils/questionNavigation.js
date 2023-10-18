@@ -22,9 +22,8 @@ export const goToPreviousQuestion = (
 export const areAllQuestionsAnswered = (userAnswers, questions) =>
   // useMemo(
   //   () =>
-      userAnswers.length === questions.length &&
-      userAnswers.every((answer) => answer !== undefined)
-      // ,
-    // [questions, userAnswers],
-  // )
-  ;
+  userAnswers.length === questions.length &&
+  userAnswers.every((answer) => answer !== undefined);
+// ,
+// [questions, userAnswers],
+// )

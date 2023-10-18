@@ -6,7 +6,7 @@ const ShowScore = ({ questions, userAnswers }) => {
     userAnswer,
     isCorrect: userAnswer === questions[index].correct_answer,
   }));
-  
+
   const finalScore = scoreArray.filter((score) => score.isCorrect).length;
 
   return (
