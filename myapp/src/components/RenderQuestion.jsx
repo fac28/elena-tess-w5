@@ -1,19 +1,21 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { decode } from "html-entities";
 
-const RenderQuestion = ({ question, handleAnswerChange }) => {
+const RenderQuestion = ({ question, currentSelection, handleAnswerChange }) => {
   return (
     <div>
-      <h3>Question: {question.question}</h3>
+      <h3>Question: {decode(question.question)}</h3>
       <div>
         {question.answers.map((answer, index) => (
           <label key={index}>
             <input
               type="radio"
+              checked={answer == currentSelection}
               name={`question${question.question}`}
               value={answer}
               onChange={() => handleAnswerChange(answer)}
             />
-            {answer}
+            {decode(answer)}
           </label>
         ))}
       </div>
@@ -24,6 +26,7 @@ const RenderQuestion = ({ question, handleAnswerChange }) => {
 
 RenderQuestion.propTypes = {
   question: PropTypes.object.isRequired, // Make sure question is an object
+  currentSelection: PropTypes.string,
   handleAnswerChange: PropTypes.func.isRequired,
 };
 
