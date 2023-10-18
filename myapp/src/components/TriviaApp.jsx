@@ -12,13 +12,13 @@ import {
   areAllQuestionsAnswered,
 } from "../utils/questionNavigation";
 
-function HomeButton({ onHomeClick }) {
-  return (
-    <button className="home-button" onClick={onHomeClick}>
-      Home
-    </button>
-  );
-}
+// function HomeButton({ onHomeClick }) {
+//   return (
+//     <button className="home-button" onClick={onHomeClick}>
+//       Home
+//     </button>
+//   );
+// }
 
 function TriviaApp() {
   const [questions, setQuestions] = useState([]);

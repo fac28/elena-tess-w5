@@ -10,13 +10,13 @@ function QuestionNavigation({
 }) {
   return (
     <div>
-      <button onClick={goToPreviousQuestion} disabled={isPreviousDisabled}>
+      <button className="btn" onClick={goToPreviousQuestion} disabled={isPreviousDisabled}>
         Previous Question
       </button>
-      <button onClick={goToNextQuestion} disabled={isNextDisabled}>
+      <button className="btn" onClick={goToNextQuestion} disabled={isNextDisabled}>
         Next Question
       </button>
-      <button onClick={handleSubmit} disabled={isSubmitDisabled}>
+      <button className="btn" onClick={handleSubmit} disabled={isSubmitDisabled}>
         Submit
       </button>
     </div>
