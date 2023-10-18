@@ -64,33 +64,38 @@ function TriviaApp() {
 
   return (
     <div>
-      {questions.length > 0 ? (
-        <>
-          <RenderQuestion
-            question={questions[currentQuestionIndex]}
-            currentSelection={userAnswers[currentQuestionIndex]}
-            handleAnswerChange={handleAnswerChange}
+      {showQuestions ? (
+        questions.length > 0 ? (
+          <>
+            <RenderQuestion
+              question={questions[currentQuestionIndex]}
+              currentSelection={userAnswers[currentQuestionIndex]}
+              handleAnswerChange={handleAnswerChange}
+            />
+            <QuestionNavigation
+            goToPreviousQuestion={() =>
+              goToPreviousQuestion(currentQuestionIndex, setCurrentQuestionIndex)
+            }
+            goToNextQuestion={() =>
+              goToNextQuestion(
+                currentQuestionIndex,
+                questions,
+                setCurrentQuestionIndex,
+              )
+            }
+            handleSubmit={handleSubmit}
+            isPreviousDisabled={currentQuestionIndex === 0}
+            isNextDisabled={currentQuestionIndex === questions.length - 1}
+            isSubmitDisabled={!areAllQuestionsAnswered(userAnswers, questions)}
           />
-          <QuestionNavigation
-          goToPreviousQuestion={() =>
-            goToPreviousQuestion(currentQuestionIndex, setCurrentQuestionIndex)
-          }
-          goToNextQuestion={() =>
-            goToNextQuestion(
-              currentQuestionIndex,
-              questions,
-              setCurrentQuestionIndex,
-            )
-          }
-          handleSubmit={handleSubmit}
-          isPreviousDisabled={currentQuestionIndex === 0}
-          isNextDisabled={currentQuestionIndex === questions.length - 1}
-          isSubmitDisabled={!areAllQuestionsAnswered(userAnswers, questions)}
-        />
-      </>
+        </>
+        ) : (
+          <p>Loading...</p>
+        )
       ) : (
-        <p>Loading...</p>
+        <h1>Sup</h1>
       )}
+
 
 
     </div>
