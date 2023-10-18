@@ -2,6 +2,12 @@ import { useEffect, useState, useMemo } from "react";
 import { getTriviaQuestions } from "../services/api";
 import { shuffleArray } from "../utils/shuffleArray";
 import RenderQuestion from "./RenderQuestion";
+import QuestionNavigation from "./QuestionNavigation";
+import {
+  goToNextQuestion,
+  goToPreviousQuestion,
+  areAllQuestionsAnswered,
+} from "../utils/questionNavigation";
 
 function TriviaApp() {
   const [questions, setQuestions] = useState([]);
@@ -38,24 +44,6 @@ function TriviaApp() {
     setUserAnswers(updatedUserAnswers);
   };
 
-  const goToNextQuestion = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    }
-  };
-
-  const goToPreviousQuestion = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-    }
-  };
-  const areAllQuestionsAnswered = useMemo(
-    () =>
-      userAnswers.length === questions.length &&
-      userAnswers.every((answer) => answer !== undefined),
-    [questions, userAnswers]
-  );
-
   const handleSubmit = () => {
     const correctAnswers = questions.map((question) => question.correct_answer);
     console.log(correctAnswers);
@@ -84,23 +72,22 @@ function TriviaApp() {
         <p>Loading...</p>
       )}
 
-      <div>
-        <button
-          onClick={goToPreviousQuestion}
-          disabled={currentQuestionIndex === 0}
-        >
-          Previous Question
-        </button>
-        <button
-          onClick={goToNextQuestion}
-          disabled={currentQuestionIndex === questions.length - 1}
-        >
-          Next Question
-        </button>
-        <button onClick={handleSubmit} disabled={!areAllQuestionsAnswered}>
-          Submit
-        </button>
-      </div>
+      <QuestionNavigation
+        goToPreviousQuestion={() =>
+          goToPreviousQuestion(currentQuestionIndex, setCurrentQuestionIndex)
+        }
+        goToNextQuestion={() =>
+          goToNextQuestion(
+            currentQuestionIndex,
+            questions,
+            setCurrentQuestionIndex,
+          )
+        }
+        handleSubmit={handleSubmit}
+        isPreviousDisabled={currentQuestionIndex === 0}
+        isNextDisabled={currentQuestionIndex === questions.length - 1}
+        isSubmitDisabled={!areAllQuestionsAnswered(userAnswers, questions)}
+      />
     </div>
   );
 }
