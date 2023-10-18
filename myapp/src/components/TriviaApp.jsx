@@ -12,13 +12,6 @@ import {
   areAllQuestionsAnswered,
 } from "../utils/questionNavigation";
 
-// function HomeButton({ onHomeClick }) {
-//   return (
-//     <button className="home-button" onClick={onHomeClick}>
-//       Home
-//     </button>
-//   );
-// }
 
 function TriviaApp() {
   const [questions, setQuestions] = useState([]);
@@ -27,6 +20,7 @@ function TriviaApp() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showQuestions, setShowQuestions] = useState(true);
   const [isHomePage, setIsHomePage] = useState(true);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     async function initializeTrivia() {
@@ -39,7 +33,16 @@ function TriviaApp() {
       }
     }
     initializeTrivia();
-  }, []);
+  }, [count]);
+
+  const incrementCount = () => {
+    setCount(count + 1)
+    setQuestions([]);
+    setUserAnswers([]);
+    setCurrentQuestionIndex(0);
+    setShowQuestions(true);
+    setIsHomePage(true);
+}
 
   const handleAnswerChange = (selectedAnswer) => {
     // Create a copy of the userAnswers array and update the selected answer for the current question.
@@ -96,6 +99,7 @@ function TriviaApp() {
             <>
               {/* <HomeButton onHomeClick={() => setIsHomePage(true)} /> */}
               <ShowScore questions={questions} userAnswers={userAnswers} />
+              <button onClick={incrementCount}>Reset</button>
             </>
           )}
         </div>
