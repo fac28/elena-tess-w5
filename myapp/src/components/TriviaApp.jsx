@@ -4,20 +4,29 @@ import { useEffect, useState } from "react";
 import { fetchTrivia } from "../services/fetchTrivia";
 import RenderQuestion from "./RenderQuestion";
 import QuestionNavigation from "./QuestionNavigation";
-import ShowScore from './ShowScore';
+import ShowScore from "./ShowScore";
+import HomePage from "./HomePage";
 import {
   goToNextQuestion,
   goToPreviousQuestion,
   areAllQuestionsAnswered,
 } from "../utils/questionNavigation";
 
+function HomeButton({ onHomeClick }) {
+  return (
+    <button className="home-button" onClick={onHomeClick}>
+      Home
+    </button>
+  );
+}
 
 function TriviaApp() {
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState([]);
   // console.log("User Answer is: ", userAnswers)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [showQuestions, setShowQuestions] = useState(true); 
+  const [showQuestions, setShowQuestions] = useState(true);
+  const [isHomePage, setIsHomePage] = useState(true);
 
   useEffect(() => {
     async function initializeTrivia() {
@@ -41,44 +50,55 @@ function TriviaApp() {
   };
 
   const handleSubmit = () => {
-    setShowQuestions(false)
+    setShowQuestions(false);
   };
 
   return (
     <div>
-      {showQuestions ? (
-        questions.length > 0 ? (
-          <>
-            <RenderQuestion
-              question={questions[currentQuestionIndex]}
-              currentSelection={userAnswers[currentQuestionIndex]}
-              handleAnswerChange={handleAnswerChange}
-            />
-            <QuestionNavigation
-            goToPreviousQuestion={() =>
-              goToPreviousQuestion(currentQuestionIndex, setCurrentQuestionIndex)
-            }
-            goToNextQuestion={() =>
-              goToNextQuestion(
-                currentQuestionIndex,
-                questions,
-                setCurrentQuestionIndex,
-              )
-            }
-            handleSubmit={handleSubmit}
-            isPreviousDisabled={currentQuestionIndex === 0}
-            isNextDisabled={currentQuestionIndex === questions.length - 1}
-            isSubmitDisabled={!areAllQuestionsAnswered(userAnswers, questions)}
-          />
-        </>
-        ) : (
-          <p>Loading...</p>
-        )
+      {isHomePage ? (
+        <HomePage onStartClick={() => setIsHomePage(false)} />
       ) : (
-        <ShowScore
-          questions={questions}
-          userAnswers={userAnswers}
-        />
+        <div>
+          {showQuestions ? (
+            questions.length > 0 ? (
+              <>
+                <RenderQuestion
+                  question={questions[currentQuestionIndex]}
+                  currentSelection={userAnswers[currentQuestionIndex]}
+                  handleAnswerChange={handleAnswerChange}
+                />
+                <QuestionNavigation
+                  goToPreviousQuestion={() =>
+                    goToPreviousQuestion(
+                      currentQuestionIndex,
+                      setCurrentQuestionIndex,
+                    )
+                  }
+                  goToNextQuestion={() =>
+                    goToNextQuestion(
+                      currentQuestionIndex,
+                      questions,
+                      setCurrentQuestionIndex,
+                    )
+                  }
+                  handleSubmit={handleSubmit}
+                  isPreviousDisabled={currentQuestionIndex === 0}
+                  isNextDisabled={currentQuestionIndex === questions.length - 1}
+                  isSubmitDisabled={
+                    !areAllQuestionsAnswered(userAnswers, questions)
+                  }
+                />
+              </>
+            ) : (
+              <p>Loading...</p>
+            )
+          ) : (
+            <>
+              {/* <HomeButton onHomeClick={() => setIsHomePage(true)} /> */}
+              <ShowScore questions={questions} userAnswers={userAnswers} />
+            </>
+          )}
+        </div>
       )}
     </div>
   );

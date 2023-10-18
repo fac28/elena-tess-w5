@@ -1,4 +1,4 @@
-const apiUrl = "https://opentdb.com/api.php?amount=10&type=multiple"
+const apiUrl = "https://opentdb.com/api.php?amount=10&type=multiple";
 
 export const getTriviaQuestions = async () => {
   try {
