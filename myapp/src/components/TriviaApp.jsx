@@ -5,12 +5,20 @@ import { fetchTrivia } from "../services/fetchTrivia";
 import RenderQuestion from "./RenderQuestion";
 import QuestionNavigation from "./QuestionNavigation";
 import ShowScore from './ShowScore';
+import HomePage from "./HomePage";
 import {
   goToNextQuestion,
   goToPreviousQuestion,
   areAllQuestionsAnswered,
 } from "../utils/questionNavigation";
 
+function HomeButton({ onHomeClick }) {
+  return (
+    <button className="home-button" onClick={onHomeClick}>
+      Home
+    </button>
+  );
+}
 
 function TriviaApp() {
   const [questions, setQuestions] = useState([]);
@@ -18,6 +26,7 @@ function TriviaApp() {
   // console.log("User Answer is: ", userAnswers)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showQuestions, setShowQuestions] = useState(true); 
+  const [isHomePage, setIsHomePage] = useState(true);
 
   useEffect(() => {
     async function initializeTrivia() {
@@ -45,6 +54,10 @@ function TriviaApp() {
   };
 
   return (
+    <div>
+    {isHomePage ? (
+      <HomePage onStartClick={() => setIsHomePage(false)} />
+    ) : (
     <div>
       {showQuestions ? (
         questions.length > 0 ? (
@@ -75,11 +88,16 @@ function TriviaApp() {
           <p>Loading...</p>
         )
       ) : (
-        <ShowScore
-          questions={questions}
-          userAnswers={userAnswers}
-        />
+        <>
+          {/* <HomeButton onHomeClick={() => setIsHomePage(true)} /> */}
+          <ShowScore
+            questions={questions}
+            userAnswers={userAnswers}
+          />
+        </>
       )}
+    </div>
+    )}
     </div>
   );
 }
