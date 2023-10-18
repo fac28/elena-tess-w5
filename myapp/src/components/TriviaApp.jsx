@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { getTriviaQuestions } from "../services/api";
-import { shuffleArray } from "../utils/shuffleArray";
+// import { getTriviaQuestions } from "../services/api";
+// import { shuffleArray } from "../utils/shuffleArray";
+import { fetchTrivia } from "../services/fetchTrivia";
 import RenderQuestion from "./RenderQuestion";
 import QuestionNavigation from "./QuestionNavigation";
 import ShowScore from './ShowScore';
@@ -19,24 +20,16 @@ function TriviaApp() {
   const [showQuestions, setShowQuestions] = useState(true); 
 
   useEffect(() => {
-    async function fetchTrivia() {
+    async function initializeTrivia() {
       try {
-        const data = await getTriviaQuestions();
-        const shuffledQuestions = data.results.map((question) => ({
-          ...question,
-          answers: shuffleArray([
-            ...question.incorrect_answers,
-            question.correct_answer,
-          ]),
-        }));
+        const shuffledQuestions = await fetchTrivia(); // Call the fetchTrivia function
         setQuestions(shuffledQuestions);
-        // eslint-disable-next-line no-unused-vars
         setUserAnswers(shuffledQuestions.map((_) => undefined));
       } catch (error) {
         console.error(error);
       }
     }
-    fetchTrivia();
+    initializeTrivia();
   }, []);
 
   const handleAnswerChange = (selectedAnswer) => {
