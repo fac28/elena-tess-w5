@@ -3,11 +3,11 @@ import { decode } from "html-entities";
 
 const RenderQuestion = ({ question, currentSelection, handleAnswerChange }) => {
   return (
-    <div>
+    <div className="question_container">
       <h3>Question: {decode(question.question)}</h3>
-      <div>
+      <div className="question_answers">
         {question.answers.map((answer, index) => (
-          <label key={index}>
+          <label className="answer" key={index}>
             <input
               type="radio"
               checked={answer == currentSelection}
@@ -19,7 +19,6 @@ const RenderQuestion = ({ question, currentSelection, handleAnswerChange }) => {
           </label>
         ))}
       </div>
-      <p>Correct Answer: {question.correct_answer}</p>
     </div>
   );
 };

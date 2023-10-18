@@ -7,7 +7,7 @@ import TriviaApp from './components/TriviaApp'
 function App() {
 return (
   <>
-  <h1>Trivia Questions</h1>
+  <h1 className='title'>Trivia Questions</h1>
   <TriviaApp/>
   </>
 )
