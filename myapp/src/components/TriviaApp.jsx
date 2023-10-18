@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { getTriviaQuestions } from "../services/api";
 import { shuffleArray } from "../utils/shuffleArray";
 import RenderQuestion from "./RenderQuestion";
@@ -8,12 +8,15 @@ import {
   goToPreviousQuestion,
   areAllQuestionsAnswered,
 } from "../utils/questionNavigation";
+// import ShowScore from './ShowScore';
+
 
 function TriviaApp() {
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState([]);
   // console.log("User Answer is: ", userAnswers)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [showQuestions, setShowQuestions] = useState(true); 
 
   useEffect(() => {
     async function fetchTrivia() {
@@ -45,15 +48,14 @@ function TriviaApp() {
   };
 
   const handleSubmit = () => {
+    setShowQuestions(false)
+
     const correctAnswers = questions.map((question) => question.correct_answer);
     console.log(correctAnswers);
-
     const scoreArray = userAnswers.map((userAnswer, index) => {
       return userAnswer === correctAnswers[index] ? 1 : 0;
     });
-
     const finalScore = scoreArray.reduce((acc, value) => acc + value, 0);
-
     //console.log('Score Array:', scoreArray);
     console.log("Final Score:", finalScore);
 
@@ -63,31 +65,34 @@ function TriviaApp() {
   return (
     <div>
       {questions.length > 0 ? (
-        <RenderQuestion
-          question={questions[currentQuestionIndex]}
-          currentSelection={userAnswers[currentQuestionIndex]}
-          handleAnswerChange={handleAnswerChange}
+        <>
+          <RenderQuestion
+            question={questions[currentQuestionIndex]}
+            currentSelection={userAnswers[currentQuestionIndex]}
+            handleAnswerChange={handleAnswerChange}
+          />
+          <QuestionNavigation
+          goToPreviousQuestion={() =>
+            goToPreviousQuestion(currentQuestionIndex, setCurrentQuestionIndex)
+          }
+          goToNextQuestion={() =>
+            goToNextQuestion(
+              currentQuestionIndex,
+              questions,
+              setCurrentQuestionIndex,
+            )
+          }
+          handleSubmit={handleSubmit}
+          isPreviousDisabled={currentQuestionIndex === 0}
+          isNextDisabled={currentQuestionIndex === questions.length - 1}
+          isSubmitDisabled={!areAllQuestionsAnswered(userAnswers, questions)}
         />
+      </>
       ) : (
         <p>Loading...</p>
       )}
 
-      <QuestionNavigation
-        goToPreviousQuestion={() =>
-          goToPreviousQuestion(currentQuestionIndex, setCurrentQuestionIndex)
-        }
-        goToNextQuestion={() =>
-          goToNextQuestion(
-            currentQuestionIndex,
-            questions,
-            setCurrentQuestionIndex,
-          )
-        }
-        handleSubmit={handleSubmit}
-        isPreviousDisabled={currentQuestionIndex === 0}
-        isNextDisabled={currentQuestionIndex === questions.length - 1}
-        isSubmitDisabled={!areAllQuestionsAnswered(userAnswers, questions)}
-      />
+
     </div>
   );
 }

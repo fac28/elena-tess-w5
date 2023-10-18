@@ -1,5 +1,16 @@
-export const ShowScore = () => {
-    // render a "new page" component with the final score
-    // use scoreArray or finalScore calculated in the handleSubmit function
-  }
+import PropTypes from "prop-types";
+import { decode } from "html-entities";
 
+const ShowScore = () => {
+  return (
+    <div>
+      <h1>Suuuup</h1>
+    </div>
+  );
+};
+
+ShowScore.propTypes = {
+
+};
+
+export default ShowScore;
