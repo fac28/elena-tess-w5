@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import { decode } from 'html-entities';
+import PropTypes from "prop-types";
+import { decode } from "html-entities";
 
 const RenderQuestion = ({ question, currentSelection, handleAnswerChange }) => {
   return (
@@ -10,7 +10,7 @@ const RenderQuestion = ({ question, currentSelection, handleAnswerChange }) => {
           <label key={index}>
             <input
               type="radio"
-              checked={answer==currentSelection}
+              checked={answer == currentSelection}
               name={`question${question.question}`}
               value={answer}
               onChange={() => handleAnswerChange(answer)}
