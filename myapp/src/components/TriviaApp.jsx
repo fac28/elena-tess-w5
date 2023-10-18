@@ -3,12 +3,12 @@ import { getTriviaQuestions } from "../services/api";
 import { shuffleArray } from "../utils/shuffleArray";
 import RenderQuestion from "./RenderQuestion";
 import QuestionNavigation from "./QuestionNavigation";
+import ShowScore from './ShowScore';
 import {
   goToNextQuestion,
   goToPreviousQuestion,
   areAllQuestionsAnswered,
 } from "../utils/questionNavigation";
-// import ShowScore from './ShowScore';
 
 
 function TriviaApp() {
@@ -49,17 +49,6 @@ function TriviaApp() {
 
   const handleSubmit = () => {
     setShowQuestions(false)
-
-    const correctAnswers = questions.map((question) => question.correct_answer);
-    console.log(correctAnswers);
-    const scoreArray = userAnswers.map((userAnswer, index) => {
-      return userAnswer === correctAnswers[index] ? 1 : 0;
-    });
-    const finalScore = scoreArray.reduce((acc, value) => acc + value, 0);
-    //console.log('Score Array:', scoreArray);
-    console.log("Final Score:", finalScore);
-
-    // something about ShowScore
   };
 
   return (
@@ -93,11 +82,11 @@ function TriviaApp() {
           <p>Loading...</p>
         )
       ) : (
-        <h1>Sup</h1>
+        <ShowScore
+          questions={questions}
+          userAnswers={userAnswers}
+        />
       )}
-
-
-
     </div>
   );
 }
