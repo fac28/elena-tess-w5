@@ -118,3 +118,18 @@
   padding: 10px;
   margin-right: 20px;
 }
+
+
+/* Results page */
+
+.your_score {
+  margin: 20px 0 20px 0;
+}
+.results_title {
+  margin-bottom: 20px;
+}
+
+.results li {
+  margin-bottom: 15px; 
+  font-size: 15px;
+}
