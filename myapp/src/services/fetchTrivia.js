@@ -1,9 +1,9 @@
 import { getTriviaQuestions } from "../services/api";
 import { shuffleArray } from "../utils/shuffleArray";
 
-async function fetchTrivia() {
+async function fetchTrivia(options) {
   try {
-    const data = await getTriviaQuestions();
+    const data = await getTriviaQuestions(options);
     const shuffledQuestions = data.results.map((question) => ({
       ...question,
       answers: shuffleArray([

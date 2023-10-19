@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { decode } from "html-entities";
 
 const ShowScore = ({ questions, userAnswers }) => {
   const scoreArray = userAnswers.map((userAnswer, index) => ({
@@ -16,9 +17,9 @@ const ShowScore = ({ questions, userAnswers }) => {
       <ul>
         {scoreArray.map((score, index) => (
           <li key={index} style={{ color: score.isCorrect ? "green" : "red" }}>
-            {score.question.question}
+            {decode(score.question.question)}
             <br />
-            {score.question.correct_answer}
+            {decode(score.question.correct_answer)}
           </li>
         ))}
       </ul>
