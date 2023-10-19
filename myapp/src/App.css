@@ -132,9 +132,21 @@ input[type="radio"] {
   margin-right: 10px;
 }
 
-/* Results Container */
-.show_answers{
-  margin: 10px;
+
+/* Results page */
+.your_score {
+  margin: 20px 0 20px 0;
+}
+.results_title {
+  margin-bottom: 20px;
+}
+  
+.results{  
   padding: 10px;
   font-size: smaller;
+}
+
+.results li {
+  margin-bottom: 15px; 
+  font-size: 15px;
 }

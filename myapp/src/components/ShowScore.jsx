@@ -12,9 +12,10 @@ const ShowScore = ({ questions, userAnswers }) => {
 
   return (
     <div>
-      <h1>You scored {finalScore} points!</h1>
-      <h2>Questions and Answers:</h2>
-      <ul class="show_answers">
+
+      <h1 className="your_score">You scored {finalScore} points!</h1>
+      <h2 className="results_title">Questions and Answers:</h2>
+      <ul className="results">
         {scoreArray.map((score, index) => (
           <li key={index} style={{ color: score.isCorrect ? "green" : "red" }}>
             {decode(score.question.question)}
