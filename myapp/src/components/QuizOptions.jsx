@@ -14,7 +14,7 @@ const QuizOptions = ({  onOptionUpdate }) => {
     }, [onOptionUpdate, difficulty, category])
     
     return (
-        <div class="quiz_options">
+        <div className="quiz_options">
             <label htmlFor="difficulty" className="select_label">Select Difficulty:</label><br />
             <input type="radio" id="easy" name="difficulty" value="easy" onChange={() => setDifficulty("easy")}/>
             <label htmlFor="easy">Easy</label><br />
