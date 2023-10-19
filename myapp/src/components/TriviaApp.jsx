@@ -98,7 +98,7 @@ function TriviaApp() {
           ) : (
             <>
               <ShowScore questions={questions} userAnswers={userAnswers} />
-              <button onClick={incrementCount}>Reset</button>
+              <button className="btn" onClick={incrementCount}>Reset</button>
             </>
           )}
         </div>

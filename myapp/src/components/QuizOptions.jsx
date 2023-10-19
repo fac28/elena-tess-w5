@@ -15,7 +15,7 @@ const QuizOptions = ({  onOptionUpdate }) => {
     
     return (
         <div class="quiz_options">
-            <label htmlFor="difficulty">Select Difficulty:</label><br />
+            <label htmlFor="difficulty" className="select_label">Select Difficulty:</label><br />
             <input type="radio" id="easy" name="difficulty" value="easy" onChange={() => setDifficulty("easy")}/>
             <label htmlFor="easy">Easy</label><br />
             <input type="radio" id="medium" name="difficulty" value="medium" onChange={() => setDifficulty("medium")}/>
@@ -25,7 +25,7 @@ const QuizOptions = ({  onOptionUpdate }) => {
             <input type="radio" id="any" name="difficulty" value="any" onChange={() => setDifficulty(undefined)}/>
             <label htmlFor="any">Any</label><br /><br />
 
-            <label htmlFor="category">Select Category:</label><br />
+            <label htmlFor="category" className="select_label">Select Category:</label><br />
             <select id="category" name="category" onChange={(event) => setCategory(event.target.value)}>
                 <option value="general_knowledge">General Knowledge</option>
                 <option value="sports">Sports</option>

@@ -10,7 +10,7 @@ const HomePage = ({ onStartClick }) => {
       <QuizOptions onOptionUpdate={setOptions}/>
       <h1>Welcome to the Trivia Game!</h1>
       <p>Click the <span className="start_text">Start</span> to begin.</p>
-      <button  className="button-51" onClick={() => onStartClick(options)}>Start</button>
+      <button  className="btn" onClick={() => onStartClick(options)}>Start</button>
     </div>
   );
 };
