@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-// import { getTriviaQuestions } from "../services/api";
-// import { shuffleArray } from "../utils/shuffleArray";
 import { fetchTrivia } from "../services/fetchTrivia";
 import RenderQuestion from "./RenderQuestion";
 import QuestionNavigation from "./QuestionNavigation";
@@ -16,16 +14,16 @@ import {
 function TriviaApp() {
   const [questions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState([]);
-  // console.log("User Answer is: ", userAnswers)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showQuestions, setShowQuestions] = useState(true);
   const [isHomePage, setIsHomePage] = useState(true);
   const [count, setCount] = useState(0);
+  const [options, setOptions] = useState({});
 
   useEffect(() => {
     async function initializeTrivia() {
       try {
-        const shuffledQuestions = await fetchTrivia(); // Call the fetchTrivia function
+        const shuffledQuestions = await fetchTrivia(options); // Call the fetchTrivia function
         setQuestions(shuffledQuestions);
         setUserAnswers(shuffledQuestions.map((_) => undefined));
       } catch (error) {
@@ -33,22 +31,21 @@ function TriviaApp() {
       }
     }
     initializeTrivia();
-  }, [count]);
+  }, [count, options]);
 
   const incrementCount = () => {
-    setCount(count + 1)
     setQuestions([]);
     setUserAnswers([]);
     setCurrentQuestionIndex(0);
     setShowQuestions(true);
     setIsHomePage(true);
+    setCount(count + 1)
 }
 
   const handleAnswerChange = (selectedAnswer) => {
     // Create a copy of the userAnswers array and update the selected answer for the current question.
     const updatedUserAnswers = [...userAnswers];
     updatedUserAnswers[currentQuestionIndex] = selectedAnswer;
-    //console.log(updatedUserAnswers)
     setUserAnswers(updatedUserAnswers);
   };
 
@@ -59,7 +56,10 @@ function TriviaApp() {
   return (
     <div>
       {isHomePage ? (
-        <HomePage onStartClick={() => setIsHomePage(false)} />
+        <HomePage onStartClick={(options) => {
+          setIsHomePage(false);
+          setOptions(options);
+        }} />
       ) : (
         <div>
           {showQuestions ? (
@@ -97,7 +97,6 @@ function TriviaApp() {
             )
           ) : (
             <>
-              {/* <HomeButton onHomeClick={() => setIsHomePage(true)} /> */}
               <ShowScore questions={questions} userAnswers={userAnswers} />
               <button onClick={incrementCount}>Reset</button>
             </>
