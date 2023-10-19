@@ -4,7 +4,7 @@ import { decode } from "html-entities";
 const RenderQuestion = ({ question, currentSelection, handleAnswerChange }) => {
   return (
     <div className="question_container">
-      <h3>Question: {decode(question.question)}</h3>
+      <h3>{decode(question.question)}</h3>
       <div className="question_answers">
         {question.answers.map((answer, index) => (
           <label className="answer" key={index}>

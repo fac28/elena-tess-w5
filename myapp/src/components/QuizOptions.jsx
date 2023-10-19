@@ -14,7 +14,7 @@ const QuizOptions = ({  onOptionUpdate }) => {
     }, [onOptionUpdate, difficulty, category])
     
     return (
-        <>
+        <div class="quiz_options">
             <label htmlFor="difficulty">Select Difficulty:</label><br />
             <input type="radio" id="easy" name="difficulty" value="easy" onChange={() => setDifficulty("easy")}/>
             <label htmlFor="easy">Easy</label><br />
@@ -37,7 +37,7 @@ const QuizOptions = ({  onOptionUpdate }) => {
                 <option value="history">History</option>
                 <option value="any">Any</option>
             </select><br /><br />
-        </>
+        </div>
     );
 };
 

@@ -12,6 +12,7 @@ const ShowScore = ({ questions, userAnswers }) => {
 
   return (
     <div>
+
       <h1 className="your_score">You scored {finalScore} points!</h1>
       <h2 className="results_title">Questions and Answers:</h2>
       <ul className="results">
