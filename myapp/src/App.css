@@ -110,11 +110,14 @@
   margin-bottom: 10px; 
   display: flex; 
   align-items: center; 
-  padding-left: 10px;
 }
 
 .btn {
   height: 40px;
   padding: 10px;
   margin-right: 20px;
+}
+
+input[type="radio"] {
+  margin-right: 10px;
 }
